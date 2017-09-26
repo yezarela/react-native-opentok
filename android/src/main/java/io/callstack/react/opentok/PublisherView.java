@@ -94,4 +94,20 @@ public class PublisherView extends SessionView implements PublisherKit.Publisher
         sendEvent(Events.EVENT_CLIENT_DISCONNECTED, payload);
     }
 
+    @Override
+    public void requestLayout() {
+        super.requestLayout();
+        post(mLayoutRunnable);
+    }
+
+    private final Runnable mLayoutRunnable = new Runnable() {
+        @Override
+        public void run() {
+            measure(
+                    MeasureSpec.makeMeasureSpec(getWidth(), MeasureSpec.EXACTLY),
+                    MeasureSpec.makeMeasureSpec(getHeight(), MeasureSpec.EXACTLY));
+            layout(getLeft(), getTop(), getRight(), getBottom());
+        }
+    };
+
 }

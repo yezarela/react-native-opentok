@@ -84,4 +84,20 @@ public class SubscriberView extends SessionView implements SubscriberKit.Subscri
 
         sendEvent(Events.EVENT_CLIENT_DISCONNECTED, payload);
     }
+
+    @Override
+    public void requestLayout() {
+        super.requestLayout();
+        post(mLayoutRunnable);
+    }
+
+    private final Runnable mLayoutRunnable = new Runnable() {
+        @Override
+        public void run() {
+            measure(
+                    MeasureSpec.makeMeasureSpec(getWidth(), MeasureSpec.EXACTLY),
+                    MeasureSpec.makeMeasureSpec(getHeight(), MeasureSpec.EXACTLY));
+            layout(getLeft(), getTop(), getRight(), getBottom());
+        }
+    };
 }
