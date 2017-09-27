@@ -4,7 +4,7 @@ import { NativeModules, NativeAppEventEmitter } from 'react-native';
 import SubscriberView from './components/SubscriberView';
 import PublisherView from './components/PublisherView';
 
-import type { Message, PublisherViewProps, SubscriberViewProps} from './types';
+import type { Message, PublisherViewProps, SubscriberViewProps } from './types';
 
 const listeners = {};
 let isInitialized = false;
@@ -24,17 +24,17 @@ const Session = {
       listeners.onMessageReceived.remove();
       // Reflect.deleteProperty(this.props.listeners, 'onMessageReceived');
     }
-  },
+  }
 };
 
 export default {
   initSession: (sessionId: string) => {
-    if (!isInitialized) {
-      NativeModules.RNOpenTok.initSession(sessionId);
-      isInitialized = true;
-    } else {
-      NativeModules.RNOpenTok.changeSession(sessionId);
-    }
+    // if (!isInitialized) {
+    NativeModules.RNOpenTok.initSession(sessionId);
+    isInitialized = true;
+    // } else {
+    //   NativeModules.RNOpenTok.changeSession(sessionId);
+    // }
   },
 
   connectWithToken: (token: string) => {
@@ -46,6 +46,10 @@ export default {
   },
 
   Session,
-  SubscriberView: (props: SubscriberViewProps) => <SubscriberView listeners={listeners} {...props} />,
-  PublisherView: (props: PublisherViewProps) => <PublisherView listeners={listeners} {...props} />,
+  SubscriberView: (props: SubscriberViewProps) => (
+    <SubscriberView listeners={listeners} {...props} />
+  ),
+  PublisherView: (props: PublisherViewProps) => (
+    <PublisherView listeners={listeners} {...props} />
+  )
 };
