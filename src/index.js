@@ -22,7 +22,7 @@ const Session = {
   stopListener() {
     if (listeners.onMessageReceived) {
       listeners.onMessageReceived.remove();
-      Reflect.deleteProperty(this.props.listeners, 'onMessageReceived');
+      // Reflect.deleteProperty(this.props.listeners, 'onMessageReceived');
     }
   },
 };
@@ -39,6 +39,10 @@ export default {
 
   connectWithToken: (token: string) => {
     NativeModules.RNOpenTok.connectWithToken(token);
+  },
+
+  disconnectSession: (): void => {
+    NativeModules.RNOpenTok.disconnect();
   },
 
   Session,
