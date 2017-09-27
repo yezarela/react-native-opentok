@@ -37,6 +37,12 @@ public class RNOpenTokPublisherView extends RNOpenTokView implements PublisherKi
         mPublisher = null;
     }
 
+    public void switchCamera() {
+        if(mPublisher != null) {
+            mPublisher.cycleCamera();
+        }
+    }
+
     /** Session listener **/
 
     @Override
